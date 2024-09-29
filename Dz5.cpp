@@ -7,26 +7,26 @@ using namespace std;
 class Reservoir {
 private:
     string name;
-    double width;
-    double length;
-    double maximumDepth;
+    double width; 
+    double length; 
+    double maximumDepth; 
     string type;
 
 public:
     Reservoir() : name(" - "), width(0), length(0), maximumDepth(0), type(" - ") {}
 
     explicit Reservoir(const string& name, double width, double length, double maximumDepth, const string& type)
-    : name(name), width(width), length(length), maximumDepth(maximumDepth), type(type) {}
+        : name(name), width(width), length(length), maximumDepth(maximumDepth), type(type) {}
 
     Reservoir(const Reservoir& other)
-    : name(other.name), width(other.width), length(other.length), maximumDepth(other.maximumDepth), type(other.type) {}
+        : name(other.name), width(other.width), length(other.length), maximumDepth(other.maximumDepth), type(other.type) {}
 
     double approximateVolume() const {
-        return width * length * maximumDepth;
+        return (width / 1000) * (length / 1000) * maximumDepth;
     }
 
     double surfaceArea() const {
-        return width * length;
+        return (width / 1000) * (length / 1000);
     }
 
     bool typeChecking(const Reservoir& other) const {
@@ -53,13 +53,14 @@ public:
     void setType(const string& type) { this->type = type; }
 
     void information() const {
-        cout << "Назва: " << name << "\nТип: " << type <<"\nШирина: " << width << " м" <<"\nДовжина: " << length << " м" << "\nМаксимальна глибина: " << maximumDepth << " м" << "\nПлоща водної поверхні: " << surfaceArea() << " м^2" <<"\nОбсяг водойми: " << approximateVolume() << " м^3" << endl;
+        cout << "Назва: " << name << "\nТип: " << type << "\nШирина: " << width / 1000 << " км" << "\nДовжина: " << length / 1000 << " км" << "\nМаксимальна глибина: " << maximumDepth << " м" << "\nПлоща водної поверхні: " << surfaceArea() << " км^2" << "\nОбсяг водойми: " << approximateVolume() << " км^3" << endl;
     }
 
     void write(ofstream& file) const {
-        file << name << " " << type << " " << width << " " << length << " " << maximumDepth << endl;
+        file << name << " " << type << " " << width / 1000 << " " << length / 1000 << " " << maximumDepth << endl;
     }
 };
+
 
 void addition(Reservoir*& reservoirs, int& size) {
     string name, type;
@@ -69,11 +70,11 @@ void addition(Reservoir*& reservoirs, int& size) {
     cin >> name;
     cout << "Введіть тип водойми: ";
     cin >> type;
-    cout << "Введіть ширину: ";
+    cout << "Введіть ширину(м): ";
     cin >> width;
-    cout << "Введіть довжину: ";
+    cout << "Введіть довжину(м): ";
     cin >> length;
-    cout << "Введіть максимальну глибину: ";
+    cout << "Введіть максимальну глибину(м): ";
     cin >> maximumDepth;
 
     Reservoir* newReservoirs = new Reservoir[size + 1];
